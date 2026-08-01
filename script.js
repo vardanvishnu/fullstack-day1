@@ -1,39 +1,146 @@
 const form = document.getElementById("blogForm");
+const blogList = document.getElementById("blogList");
 
-const title = document.getElementById("title");
+// Load Blogs
+function loadBlogs() {
 
-const content = document.getElementById("content");
+    fetch("http://localhost:3000/blogs")
+    .then(response => response.json())
+    .then(data => {
 
-const message = document.getElementById("message");
+        blogList.innerHTML = "";
 
-form.addEventListener("submit", function(event){
+        data.forEach(blog => {
 
-    event.preventDefault();
+            blogList.innerHTML += `
 
-    if(title.value.trim() === ""){
+            <div class="blog-card">
 
-        message.innerHTML = "❌ Please enter Blog Title";
+                <h3>${blog.title}</h3>
 
-        message.style.color = "red";
+                <p>Author : ${blog.author}</p>
 
-        return;
+                <button onclick="editBlog(${blog.id})">
 
-    }
+                    Edit
 
-    if(content.value.trim() === ""){
+                </button>
 
-        message.innerHTML = "❌ Please enter Blog Content";
+                <button onclick="deleteBlog(${blog.id})">
 
-        message.style.color = "red";
+                    Delete
 
-        return;
+                </button>
 
-    }
+            </div>
 
-    message.innerHTML = "✅ Blog Added Successfully!";
+            `;
 
-    message.style.color = "green";
+        });
 
-    form.reset();
+    });
+
+}
+
+loadBlogs();
+
+// Add Blog
+form.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const title=document.getElementById("title").value;
+
+    const author=document.getElementById("author").value;
+
+    fetch("http://localhost:3000/blogs",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            title:title,
+
+            author:author
+
+        })
+
+    })
+
+    .then(response=>response.json())
+
+    .then(data=>{
+
+        alert(data.message);
+
+        form.reset();
+
+        loadBlogs();
+
+    });
 
 });
+
+// Delete Blog
+function deleteBlog(id){
+
+    fetch(`http://localhost:3000/blogs/${id}`,{
+
+        method:"DELETE"
+
+    })
+
+    .then(response=>response.json())
+
+    .then(data=>{
+
+        alert(data.message);
+
+        loadBlogs();
+
+    });
+
+}
+
+// Edit Blog
+function editBlog(id){
+
+    const title=prompt("Enter New Title");
+
+    const author=prompt("Enter New Author");
+
+    fetch(`http://localhost:3000/blogs/${id}`,{
+
+        method:"PUT",
+
+        headers:{
+
+            "Content-Type":"application/json"
+
+        },
+
+        body:JSON.stringify({
+
+            title:title,
+
+            author:author
+
+        })
+
+    })
+
+    .then(response=>response.json())
+
+    .then(data=>{
+
+        alert(data.message);
+
+        loadBlogs();
+
+    });
+
+}
