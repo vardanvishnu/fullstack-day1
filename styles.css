@@ -179,3 +179,123 @@ button:hover {
 .blog-card {
     animation: fadeIn 0.5s ease;
 }
+/* ===== DAY 13 - Responsive Design ===== */
+
+/* ===== DAY 13 - MOBILE RESPONSIVE DESIGN ===== */
+
+/* Prevent horizontal scrolling */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Main sections */
+    .container,
+    main,
+    section {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Welcome section */
+    h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    /* Form */
+    form {
+        width: 100%;
+        padding: 15px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        max-width: 100%;
+        padding: 12px;
+    }
+
+    /* Blog cards */
+    #blogList {
+        width: 100%;
+    }
+
+    .blog-card {
+        width: 100%;
+        margin: 12px 0;
+        padding: 15px;
+    }
+
+    /* Buttons */
+    button {
+        padding: 10px 16px;
+    }
+
+    footer {
+        width: 100%;
+        text-align: center;
+        padding: 15px 10px;
+    }
+}
+
+
+/* Small phones */
+@media (max-width: 480px) {
+
+    h1 {
+        font-size: 23px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    form {
+        padding: 12px;
+    }
+
+    input,
+    textarea {
+        font-size: 14px;
+    }
+
+    .blog-card {
+        padding: 12px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 9px 13px;
+    }
+
+    footer {
+        font-size: 13px;
+    }
+}
